@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NGX_EXPRESSIONS_CONFIG, NgxExpressionsConfig } from '../../../ngx-expressions/src/lib/models';
 
 export function handleLogger(message: string, params: any[]) {
+    // tslint:disable-next-line:no-console
     console.debug(message, params);
 }
 

@@ -17,26 +17,23 @@ export interface INgxExpressionsConfig {
 
     /**
      * If you want to add some custom configuration to the monaco environment, this method is called once right after it becomes ready.
-     * @param monaco
      */
     configure?: (monaco: any) => Promise<void> | void;
 
     /**
      * To assist debugging you can implement the log which will trigger for verbose logging.  Beware - there is a lot.  Use this at your
      * discretion.
-     * @param message
-     * @param params
      */
     log?: (message: string, params: any[]) => void;
 }
 
 export class NgxExpressionsConfig implements INgxExpressionsConfig {
     constructor(args?: INgxExpressionsConfig) {
-        if (args == null) return;
-        if (args.monacoBaseUrl != null) this.monacoBaseUrl = args.monacoBaseUrl;
-        if (args.monacoDefaultOptions != null) this.monacoDefaultOptions = args.monacoDefaultOptions;
-        if (args.configure != null) this.configure = args.configure;
-        if (args.log != null) this.log = args.log;
+        if (args == null) { return; }
+        if (args.monacoBaseUrl != null) { this.monacoBaseUrl = args.monacoBaseUrl; }
+        if (args.monacoDefaultOptions != null) { this.monacoDefaultOptions = args.monacoDefaultOptions; }
+        if (args.configure != null) { this.configure = args.configure; }
+        if (args.log != null) { this.log = args.log; }
     }
     public monacoBaseUrl: string = MONACO_CDN_BASE_URL;
     public monacoDefaultOptions: any = DEFAULT_OPTIONS;

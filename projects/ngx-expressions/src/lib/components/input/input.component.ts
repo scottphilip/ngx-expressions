@@ -33,19 +33,10 @@ export const MAX_VISIBLE_LINE_COUNT = 8;
     styleUrls: ['./input.component.scss']
 })
 export class InputComponent implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy {
-    public static nextId = 0;
-
-    @ViewChild('editorRef')
-    public editorRef: EditorComponent;
 
     public get busy(): boolean {
         return this._busy === true;
     }
-
-    public language = 'typescript';
-
-    @Input()
-    public color: 'primary' | 'accent';
 
     @Input()
     public get returnType(): string {
@@ -63,15 +54,6 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
         this.applyValue();
         this.stateChanges.next();
     }
-
-    @Input()
-    public parameters = 'ctx: any';
-
-    @Input()
-    public mode: ModeType = 'interpolation';
-
-    @Input()
-    public output: 'function' | 'template' = 'template';
 
     @Input()
     public get disabled(): boolean {
@@ -117,8 +99,11 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
     @Input()
     public get value(): string {
         const parsed = this.getParseResult();
+        if (parsed == null) {
+            return null;
+        }
         if (this.output === 'template') {
-            parsed.targetCode;
+            return parsed.targetCode;
         } else if (this.output === 'function') {
             return parsed.fullCode;
         }
@@ -129,12 +114,6 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
         this.applyValue();
         this.stateChanges.next();
     }
-
-    @HostBinding('attr.aria-describedby')
-    public describedBy = '';
-
-    @HostBinding()
-    public id = `expr-input-${++InputComponent.nextId}`;
 
     @HostBinding('class.floating')
     public get shouldLabelFloat(): boolean {
@@ -170,10 +149,6 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
         return parsed.targetLineCount > MAX_VISIBLE_LINE_COUNT;
     }
 
-    public autofilled = false;
-
-    public controlType = 'expression';
-
     public get empty(): boolean {
         return (
             this._value == null ||
@@ -204,15 +179,48 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
         this.stateChanges.next();
     }
 
-    @HostListener('window:resize', ['$event'])
-    public updateLayout() {
-        this.updateHiddenRanges();
-        if (this.editorRef == null || this.editorRef.editor == null) {
-            return;
+    constructor(
+        @Inject(NGX_EXPRESSIONS_CONFIG) protected config: NgxExpressionsConfig,
+        protected focusMonitor: FocusMonitor,
+        protected elementRef: ElementRef<HTMLElement>,
+        @Optional() @Self() public ngControl: NgControl,
+        protected formatter: FormatterService
+    ) {
+        if (ngControl) {
+            // Set the value accessor directly (instead of providing
+            // NG_VALUE_ACCESSOR) to avoid running into a circular import
+            this.ngControl.valueAccessor = this;
+            ngControl.valueAccessor = this;
         }
-        this.editorRef.editor.layout();
-        this.editorRef.elementRef.nativeElement.scrollTop = 0;
     }
+    public static nextId = 0;
+
+    @ViewChild('editorRef')
+    public editorRef: EditorComponent;
+
+    public language = 'typescript';
+
+    @Input()
+    public color: 'primary' | 'accent';
+
+    @Input()
+    public parameters = 'ctx: any';
+
+    @Input()
+    public mode: ModeType = 'interpolation';
+
+    @Input()
+    public output: 'function' | 'template' = 'template';
+
+    @HostBinding('attr.aria-describedby')
+    public describedBy = '';
+
+    @HostBinding()
+    public id = `expr-input-${++InputComponent.nextId}`;
+
+    public autofilled = false;
+
+    public controlType = 'expression';
 
     public stateChanges: Subject<void> = new Subject();
 
@@ -230,19 +238,14 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
     protected _destroy: Subject<void> = new Subject();
     protected _autosize = false;
 
-    constructor(
-        @Inject(NGX_EXPRESSIONS_CONFIG) protected config: NgxExpressionsConfig,
-        protected focusMonitor: FocusMonitor,
-        protected elementRef: ElementRef<HTMLElement>,
-        @Optional() @Self() public ngControl: NgControl,
-        protected formatter: FormatterService
-    ) {
-        if (ngControl) {
-            // Set the value accessor directly (instead of providing
-            // NG_VALUE_ACCESSOR) to avoid running into a circular import
-            this.ngControl.valueAccessor = this;
-            ngControl.valueAccessor = this;
+    @HostListener('window:resize', ['$event'])
+    public updateLayout() {
+        this.updateHiddenRanges();
+        if (this.editorRef == null || this.editorRef.editor == null) {
+            return;
         }
+        this.editorRef.editor.layout();
+        this.editorRef.elementRef.nativeElement.scrollTop = 0;
     }
 
     public ngAfterViewInit(): void {

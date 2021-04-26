@@ -22,9 +22,9 @@ export class AppComponent implements OnInit {
     public enable = false;
 
     public codeExpression = `myWorld.worldName !== "Hello"`;
-    public codeInterpolation: string = 'Hello ${myWorld.worldName}';
-    public codeErrors: string = '1 + 3b';
-    public codeAutosize: string = `const extend: string[] = ["E", "x", "t", "e", "n", "d"];
+    public codeInterpolation = 'Hello ${myWorld.worldName}';
+    public codeErrors = '1 + 3b';
+    public codeAutosize = `const extend: string[] = ["E", "x", "t", "e", "n", "d"];
 const myTemplate: string = \`
 
 Hello

@@ -11,8 +11,8 @@ export const GENERIC_PARSER = (log: (message: string, params: any[]) => void, re
     const fullCode = model.getValue();
     if (!fullCode.match(regex)) {
         regex.lastIndex = 0;
-        const groups = regex.exec(fullCode);
-        console.warn('Failed to parse code', groups, fullCode, regex);
+        const failedGroups = regex.exec(fullCode);
+        console.warn('Failed to parse code', failedGroups, fullCode, regex);
         return null;
     }
     regex.lastIndex = 0;
