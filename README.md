@@ -1,8 +1,10 @@
 # ngx-expressions
 
 ## Demo
-- https://ngx-expressions-demo.stackblitz.io
-- https://scottphilip.github.io/ngx-expressions
+
+https://scottphilip.github.io/ngx-expressions
+
+https://stackblitz.com/edit/ngx-expressions-demo
 
 ## Overview
 
