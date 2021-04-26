@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+@import '../../ngx-expressions/src/styles/ngx-expressions';
+html,
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+* {
+    box-sizing: border-box;
+}
+
+$mat-theme: mat-light-theme(mat-palette($mat-indigo), mat-palette($mat-pink));
+
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    min-width: 600px;
+    @include mat-core-theme($mat-theme);
+    @include ngx-expressions($mat-theme);
+}
+
+h1 {
+    background-color: mat-color(mat-palette($mat-pink), default);
+    color: mat-color(mat-palette($mat-pink), default-contrast);
+}
+h2 {
+    background-color: mat-color(mat-palette($mat-gray), 200);
+    color: mat-color(mat-palette($mat-gray), 700);
+}

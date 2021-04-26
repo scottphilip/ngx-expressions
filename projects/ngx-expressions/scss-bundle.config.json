@@ -1,0 +1,7 @@
+{
+    "bundlerOptions": {
+        "entryFile": "./projects/ngx-expressions/src/styles/_index.scss",
+        "rootDir": "./",
+        "outFile": "dist/ngx-expressions/_index.scss"
+    }
+}

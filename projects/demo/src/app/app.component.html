@@ -1,0 +1,87 @@
+<h1>ngx-expressions</h1>
+<h2>Demo</h2>
+<div class="wrapper">
+
+    <h3>Expression returning boolean</h3>
+    <div class="field">
+        <mat-form-field appearance="outline">
+            <mat-label>Boolean Expression</mat-label>
+            <expr-input
+              #exprBoolean
+              [(ngModel)]="codeExpression"
+              parameters="myWorld: MyWorld"
+              mode="expression"
+              returnType="boolean"
+            ></expr-input>
+            <mat-hint>Available parameters: {{ exprBoolean.parameters }}</mat-hint>
+            <mat-error>{{ exprBoolean.validationErrors.join('  ') }}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <h3>Interpolated/Template String</h3>
+    <p>Try entering </p>
+    <div class="field">
+        <mat-form-field color="accent">
+            <mat-label>String Interpolation</mat-label>
+            <expr-input
+              [(ngModel)]="codeInterpolation"
+              #exprInput
+              parameters="myWorld: MyWorld"
+              mode="interpolation"
+              returnType="string"
+              color="accent"
+            ></expr-input>
+            <mat-hint>Available parameters: {{ exprInput.parameters }}</mat-hint>
+            <mat-error>{{ exprInput.validationErrors.join('  ') }}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <h3>Interpolated Textarea</h3>
+    <div class="field">
+        <mat-form-field color="accent">
+            <mat-label>Textarea</mat-label>
+            <expr-input
+              [(ngModel)]="codeInterpolation"
+              #exprInput
+              parameters="myWorld: MyWorld"
+              color="accent"
+            ></expr-input>
+            <mat-hint>Available parameters: {{ exprInput.parameters }}</mat-hint>
+            <mat-error>{{ exprInput.validationErrors.join('  ') }}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <h3>Syntax Errors</h3>
+    <div class="field">
+        <mat-form-field appearance="fill">
+            <mat-label>Syntax Errors (Expects a number)</mat-label>
+            <expr-input
+              #exprWithErrors
+              [(ngModel)]="codeErrors"
+              parameters="myWorld: MyWorld"
+              mode="expression"
+              returnType="number"
+            ></expr-input>
+            <mat-hint>Available parameters: {{ exprWithErrors.parameters }}</mat-hint>
+            <mat-error>{{ exprWithErrors.validationErrors.join('  ') }}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <h3>Autosize</h3>
+    <div class="field">
+        <mat-form-field>
+            <mat-label>Expression</mat-label>
+            <expr-input
+              [(ngModel)]="codeAutosize"
+              #exprAutosize
+              mode="extended"
+              returnType="number"
+              [autosize]="true"
+              parameters="myWorld: MyWorld"
+              color="accent"
+            ></expr-input>
+            <mat-hint>Available parameters: {{ exprAutosize?.parameters }}</mat-hint>
+            <mat-error>{{ exprAutosize.validationErrors?.join('  ') }}</mat-error>
+        </mat-form-field>
+    </div>
+</div>

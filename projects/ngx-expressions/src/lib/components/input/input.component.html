@@ -1,0 +1,15 @@
+<div
+    class="expr input"
+    [class.busy]="busy === true"
+    [class.disabled]="disabled === true"
+    [class.primary]="color === 'primary'"
+    [class.accent]="color === 'accent'"
+    [class.autosize]="autosize === true"
+    [class.scrolling]="scrolling === true"
+    [ngClass]="mode"
+    [ngStyle]="styles"
+>
+    <expr-editor #editorRef [language]="language" (editorReady)="onEditorReady()" [ngStyle]="styles"></expr-editor>
+    <div class="overlay"></div>
+    <div class="spinner"><i></i></div>
+</div>

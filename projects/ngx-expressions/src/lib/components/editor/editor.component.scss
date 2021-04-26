@@ -1,0 +1,18 @@
+.expr.editor {
+    display: block;
+    width: calc(100% + 100px);
+    height: calc(100% + 100px);
+    min-height: 100px;
+    min-width: 200px;
+
+    ::ng-deep {
+        .monaco-editor-background,
+        .monaco-editor {
+            background-color: transparent !important;
+        }
+
+        .decorationsOverviewRuler {
+            display: none;
+        }
+    }
+}

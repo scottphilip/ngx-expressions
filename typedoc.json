@@ -1,0 +1,12 @@
+{
+    "entryPoints": [
+        "projects/ngx-expressions/src/public-api.ts"
+    ],
+    "out": "docs/typedoc",
+    "exclude": ["**/*+(index|.spec|.e2e).ts"],
+    "includes": "projects/ngx-expressions/src/lib",
+    "tsconfig": "tsconfig.json",
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeExternals": true
+}

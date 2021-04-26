@@ -1,0 +1,77 @@
+@mixin ngx-expressions($mat-theme, $typography-config: null) {
+    $background-palette: map-get($mat-theme, 'background');
+    $foreground-palette: map-get($mat-theme, 'foreground');
+    $accent-palette: map-get($mat-theme, 'accent');
+    $primary-palette: map-get($mat-theme, 'primary');
+    $bg-background: map-get($background-palette, 'background');
+    $bg-card: map-get($background-palette, 'card');
+    $fg-icon: map-get($foreground-palette, 'icon');
+    $fg-text: map-get($foreground-palette, 'text');
+
+    .expr.input {
+
+        .view-lines {
+            .view-line {
+                span {
+                    .mtk1 {
+                        color: $fg-text !important;
+                    }
+                    .mtk20 {
+                        color: $fg-text !important;
+                    }
+                }
+            }
+        }
+
+        &.interpolation {
+            
+            &.accent {
+                .view-lines {
+                    .view-line {
+                        span {
+                            .mtk1 {
+                                color: mat-color($accent-palette, "default") !important;
+                            }
+                        }
+                    }
+                }
+            }
+    
+            &.primary {
+                .view-lines {
+                    .view-line {
+                        span {
+                            .mtk1 {
+                                color: mat-color($primary-palette, "default") !important;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        &.busy {
+            .spinner {
+                i {
+                    border-top: 1px solid $fg-icon !important;
+                }
+            }
+        }
+        
+        &.disabled {
+            &.accent, &.primary {
+                .view-lines {
+                    .view-line {
+                        span {
+                            .mtk1 {
+                                color: inherit !important;
+                                opacity: 0.5;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

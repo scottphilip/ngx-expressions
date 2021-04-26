@@ -1,0 +1,269 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ngx-expressions</title>
+	<meta name="description" content="Documentation for ngx-expressions">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">ngx-expressions</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>ngx-expressions</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p>Angular control that allowing a quick and easy way to give intellisense to a field.  Works with Reactive forms and can be used with <a href="https://material.angular.io/components/form-field/overview">Material Form Field</a>.</p>
+				<p><img src="https://raw.githubusercontent.com/scottphilip/ngx-expressions/docs/demo-expression-interpolation.png" alt="Demo Screenshot"></p>
+				<p>Under the hood, it uses <a href="https://github.com/microsoft/monaco-editor">Monaco Editor</a>.  The original use case it solved was helping users complete text templates by providing intellisense when inserting parameters which varied accross multiple context.</p>
+				<p>It has since been extended to work for both expressions and functions.</p>
+				<a href="#how-it-works" id="how-it-works" style="color: inherit; text-decoration: none;">
+					<h2>How it works</h2>
+				</a>
+				<p>Behind the scenes it creates a template in the form:</p>
+				<pre><code><span style="color: #000000">( </span><span style="color: #001080">PARAMETER</span><span style="color: #000000"> ):  </span><span style="color: #267F99">RETURN_TYPE</span><span style="color: #000000">   </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+
+<span style="color: #000000">    </span><span style="color: #0070C1">USER_CONTENT</span>
+
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>Where the modes for Expression and Interpolation wrap the USER_CONTENT with a <code>return ( );</code> and <code>return (` `);</code> respectively.</p>
+				<p>When importing the NgxExpressionModule using the forRoot method or NGX_EXPRESSIONS_CONFIG token provider you can import external libs using the usual Monaco ways. </p>
+				<a href="#try-it-out" id="try-it-out" style="color: inherit; text-decoration: none;">
+					<h2>Try it out</h2>
+				</a>
+				<ul>
+					<li><a href="https://ngx-expressions-demo.stackblitz.io">https://ngx-expressions-demo.stackblitz.io</a></li>
+				</ul>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h2>Install</h2>
+				</a>
+				<p>You can install using <a href="https://npm.org/packages/ngx-expressions">npm package</a></p>
+				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">install</span><span style="color: #000000"> --</span><span style="color: #001080">save</span><span style="color: #000000"> </span><span style="color: #001080">ngx</span><span style="color: #000000">-</span><span style="color: #001080">expressions</span>
+</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<a href="#import-module" id="import-module" style="color: inherit; text-decoration: none;">
+					<h3>Import Module</h3>
+				</a>
+				<p>Import NgxExpressionsModule into your AppModule using the forRoot method.</p>
+				<pre><code><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">NgxExpressionsModule</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;ngx-expressions&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">...</span>
+
+<span style="color: #000000">@</span><span style="color: #795E26">NgModule</span><span style="color: #000000">({</span>
+<span style="color: #000000">    ...</span>
+<span style="color: #000000">    </span><span style="color: #001080">imports</span><span style="color: #000000">: [</span>
+
+<span style="color: #000000">        ...</span>
+
+<span style="color: #000000">        </span><span style="color: #001080">NgxExpressionsModule</span><span style="color: #000000">.</span><span style="color: #795E26">forRoot</span><span style="color: #000000">({</span>
+<span style="color: #000000">            </span><span style="color: #795E26">log</span><span style="color: #001080">:</span><span style="color: #000000"> (</span><span style="color: #001080">message</span><span style="color: #000000">, </span><span style="color: #001080">params</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">                </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">debug</span><span style="color: #000000">(</span><span style="color: #001080">message</span><span style="color: #000000">, </span><span style="color: #001080">params</span><span style="color: #000000">);</span>
+<span style="color: #000000">            },</span>
+<span style="color: #000000">            </span><span style="color: #795E26">configure</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">monaco</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">                </span><span style="color: #001080">monaco</span><span style="color: #000000">.</span><span style="color: #001080">languages</span><span style="color: #000000">.</span><span style="color: #001080">typescript</span><span style="color: #000000">.</span><span style="color: #001080">typescriptDefaults</span><span style="color: #000000">.</span><span style="color: #795E26">addExtraLib</span><span style="color: #000000">(</span><span style="color: #A31515">`</span>
+<span style="color: #A31515">declare interface MyWorld {</span>
+<span style="color: #A31515">    worldPrefix: string;</span>
+<span style="color: #A31515">    worldName: string;</span>
+<span style="color: #A31515">}`</span><span style="color: #000000">,</span>
+<span style="color: #000000">                    </span><span style="color: #A31515">&#039;ts:helper.d.ts&#039;</span>
+<span style="color: #000000">                );</span>
+<span style="color: #000000">            }</span>
+<span style="color: #000000">        })</span>
+<span style="color: #000000">    ],</span>
+<span style="color: #000000">})</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">AppModule</span><span style="color: #000000"> {}</span>
+</code></pre>
+				<a href="#component" id="component" style="color: inherit; text-decoration: none;">
+					<h3>Component</h3>
+				</a>
+				<pre><code><span style="color: #000000">&lt;</span><span style="color: #001080">mat</span><span style="color: #000000">-</span><span style="color: #001080">form</span><span style="color: #000000">-</span><span style="color: #001080">field</span><span style="color: #000000"> </span><span style="color: #001080">color</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;accent&quot;</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #001080">mat</span><span style="color: #000000">-</span><span style="color: #001080">label</span><span style="color: #000000">&gt;</span><span style="color: #267F99">String</span><span style="color: #000000"> </span><span style="color: #001080">Interpolation</span><span style="color: #000000">&lt;/</span><span style="color: #001080">mat</span><span style="color: #000000">-</span><span style="color: #001080">label</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #001080">expr</span><span style="color: #000000">-</span><span style="color: #001080">input</span>
+<span style="color: #000000">      [(</span><span style="color: #001080">ngModel</span><span style="color: #000000">)]=</span><span style="color: #A31515">&quot;codeInterpolation&quot;</span>
+<span style="color: #000000">      #</span><span style="color: #001080">exprInput</span>
+<span style="color: #000000">      </span><span style="color: #001080">parameters</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;myWorld: MyWorld&quot;</span>
+<span style="color: #000000">      </span><span style="color: #001080">mode</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;interpolation&quot;</span>
+<span style="color: #000000">      </span><span style="color: #001080">returnType</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;string&quot;</span>
+<span style="color: #000000">      </span><span style="color: #001080">color</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;accent&quot;</span>
+<span style="color: #000000">    &gt;&lt;/</span><span style="color: #267F99">expr</span><span style="color: #000000">-</span><span style="color: #267F99">input</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #001080">mat</span><span style="color: #000000">-</span><span style="color: #001080">hint</span><span style="color: #000000">&gt;</span><span style="color: #001080">Available</span><span style="color: #000000"> parameters: {{ </span><span style="color: #001080">exprInput</span><span style="color: #000000">.</span><span style="color: #001080">parameters</span><span style="color: #000000"> }}&lt;/</span><span style="color: #001080">mat</span><span style="color: #000000">-</span><span style="color: #001080">hint</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #001080">mat</span><span style="color: #000000">-</span><span style="color: #001080">error</span><span style="color: #000000">&gt;{{ exprInput.validationErrors.join(</span><span style="color: #A31515">&#039;  &#039;</span><span style="color: #001080">) }}&lt;/mat-error&gt;</span>
+<span style="color: #001080">&lt;/mat-form-field&gt;</span>
+</code></pre>
+				<a href="#properties" id="properties" style="color: inherit; text-decoration: none;">
+					<h2>Properties</h2>
+				</a>
+				<p>All the regular fields that you would expect on a text box are there, but the following are in addition.</p>
+				<a href="#color-quotprimaryquot--quotaccentquot--undefined" id="color-quotprimaryquot--quotaccentquot--undefined" style="color: inherit; text-decoration: none;">
+					<h5>color: <code>&quot;primary&quot; | &quot;accent&quot; | undefined</code></h5>
+				</a>
+				<p>The Material Theme colour for the dynamic text.  Default undefined.</p>
+				<a href="#parameters-string" id="parameters-string" style="color: inherit; text-decoration: none;">
+					<h5>parameters: <code>string</code></h5>
+				</a>
+				<p>The comma seperated list of parameter names with their data types. </p>
+				<a href="#output-string" id="output-string" style="color: inherit; text-decoration: none;">
+					<h5>output: <code>string</code></h5>
+				</a>
+				<p>When the control returns a final resulting value, it can be in the format of a function, with parenthesis or a string that goes between back ticks</p>
+				<a href="#validationerrors-string" id="validationerrors-string" style="color: inherit; text-decoration: none;">
+					<h5>validationErrors: <code>string[]</code></h5>
+				</a>
+				<p>Returns an array of validation errors (not warnings) relating to the control.</p>
+				<a href="#language-string" id="language-string" style="color: inherit; text-decoration: none;">
+					<h5>language: <code>string</code></h5>
+				</a>
+				<p>This has only been tested and used with Typescript, however it should be possible to use other languages if required.</p>
+				<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
+					<h2>Configuration</h2>
+				</a>
+				<pre><code><span style="color: #008000">/**</span>
+<span style="color: #008000"> * The base url for where to find the monaco library.  Defaults to use CDN</span>
+<span style="color: #008000"> * (https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/) library.  However if you prefer you can host this locally.</span>
+<span style="color: #008000"> */</span>
+<span style="color: #001080">monacoBaseUrl</span><span style="color: #000000">?: </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
+
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * The default configuration for the monaco editor control.  Can be overriden for each control using the options parameter.</span>
+<span style="color: #008000"> */</span>
+<span style="color: #001080">monacoDefaultOptions</span><span style="color: #000000">?: </span><span style="color: #001080">any</span><span style="color: #000000">;</span>
+
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * If you want to add some custom configuration to the monaco environment, this method is called once right after it becomes ready.</span>
+<span style="color: #008000"> * </span><span style="color: #0000FF">@param</span><span style="color: #008000"> </span><span style="color: #001080">monaco</span>
+<span style="color: #008000"> */</span>
+<span style="color: #001080">configure</span><span style="color: #000000">?: (</span><span style="color: #001080">monaco</span><span style="color: #000000">: </span><span style="color: #267F99">any</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;</span><span style="color: #0000FF">void</span><span style="color: #000000">&gt; | </span><span style="color: #0000FF">void</span><span style="color: #000000">;</span>
+
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * To assist debugging you can implement the log which will trigger for verbose logging.  Beware - there is a lot.  Use this at your</span>
+<span style="color: #008000"> * discretion.</span>
+<span style="color: #008000"> * </span><span style="color: #0000FF">@param</span><span style="color: #008000"> </span><span style="color: #001080">message</span>
+<span style="color: #008000"> * </span><span style="color: #0000FF">@param</span><span style="color: #008000"> </span><span style="color: #001080">params</span>
+<span style="color: #008000"> */</span>
+<span style="color: #001080">log</span><span style="color: #000000">?: (</span><span style="color: #001080">message</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">params</span><span style="color: #000000">: </span><span style="color: #267F99">any</span><span style="color: #000000">[]) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #0000FF">void</span><span style="color: #000000">;</span>
+</code></pre>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>MIT License </p>
+				<p>Copyright (c) 2021 Scott Philip, Berlin, Germany</p>
+				<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+					of this software and associated documentation files (the &quot;Software&quot;), to deal
+					in the Software without restriction, including without limitation the rights
+					to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+					copies of the Software, and to permit persons to whom the Software is
+				furnished to do so, subject to the following conditions:</p>
+				<p>The above copyright notice and this permission notice shall be included in all
+				copies or substantial portions of the Software.</p>
+				<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+					IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+					FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+					AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+					LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+					OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+				SOFTWARE.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/inputcomponent.html" class="tsd-kind-icon">Input<wbr>Component</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/ngxexpressionsconfig.html" class="tsd-kind-icon">Ngx<wbr>Expressions<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/ngxexpressionsmodule.html" class="tsd-kind-icon">Ngx<wbr>Expressions<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ingxexpressionsconfig.html" class="tsd-kind-icon">INgx<wbr>Expressions<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#ngx_expressions_config" class="tsd-kind-icon">NGX_<wbr>EXPRESSIONS_<wbr>CONFIG</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

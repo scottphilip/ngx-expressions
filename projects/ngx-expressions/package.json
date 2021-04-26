@@ -1,0 +1,36 @@
+{
+    "name": "ngx-expressions",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://gihub.com/scottphilip/ngx-expressions"
+    },
+    "homepage": "https://gihub.com/scottphilip/ngx-expressions",
+    "author": {
+        "name": "Scott Philip",
+        "email": "git@scottphilip.de"
+    },
+    "keywords": [
+        "angular",
+        "intellisense",
+        "mat-form-field",
+        "material",
+        "reactive-form",
+        "interpolation",
+        "typescript",
+        "template",
+        "format",
+        "placeholder",
+        "control",
+        "ide"
+    ],
+    "license": "MIT License",
+    "peerDependencies": {
+        "@angular/common": "^9.0.0",
+        "@angular/core": "^9.0.0",
+        "@angular/material": "^9.0.0"
+    },
+    "dependencies": {
+        "tslib": "^2.0.0"
+    }
+}

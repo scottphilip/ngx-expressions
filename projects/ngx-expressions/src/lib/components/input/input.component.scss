@@ -1,0 +1,116 @@
+
+.expr.input {
+    position: relative;
+    width: 100%;
+    min-height: 22px;
+    line-height: 22px;
+    height: 22px;
+    overflow: hidden;
+    margin-bottom: -7px;
+    min-width: 200px;
+    
+    ::ng-deep {
+        .monaco-editor {
+            .scrollbar {
+                display: none !important;
+            }
+        }
+    }
+    
+    &.autosize.scrolling {
+        .monaco-editor {
+            .scrollbar {
+                display: inherit !important;
+            }
+        }
+    }
+
+    expr-editor,
+    .overlay {
+        transition: opacity ease 0.3s;
+        display: block;
+    }
+
+    expr-editor {
+        opacity: 1;
+    }
+
+    .overlay,
+    .spinner {
+        display: none;
+        opacity: 0;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9998;
+    }
+
+    .spinner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 22px;
+        height: 22px;
+
+        i {
+            position: absolute;
+            top: 0px;
+            left: 4px;
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            animation: circ-anim 0.7s linear infinite;
+            border-radius: 50%;
+            border-right: 2px solid transparent;
+            border-top: 1px solid gray;
+            transform-origin: center;
+            z-index: 9999;
+        }
+
+        @keyframes circ-anim {
+            from {
+                transform: rotate(0);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    }
+
+    &.busy {
+        expr-editor {
+            opacity: 0;
+        }
+
+        .overlay,
+        .spinner {
+            display: block;
+            opacity: 1;
+            z-index: 99999;
+        }
+    }
+    
+    &.disabled {
+        expr-editor {
+            opacity: 0.8;
+        }
+        .overlay {
+            display: block;
+            z-index: 99999;
+        }
+    }
+
+    ::ng-deep {
+        .mtk1 {
+            color: #2d2d2d !important;
+        }
+        .mtk20 {
+            color: #474747 !important;
+        }
+    }
+}

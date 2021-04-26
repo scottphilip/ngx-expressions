@@ -1,0 +1,22 @@
+h1 {
+    margin: 0;
+    padding: 96px 64px 12px 64px;
+}
+h2 {
+    margin: 0;
+    padding: 12px 64px 12px 64px;
+    font-weight: normal;
+}
+
+.wrapper {
+    padding: 32px 64px 64px 64px;
+
+    .field {
+        border: 1px solid gainsboro;
+        padding: 32px;
+
+        mat-form-field {
+            width: 100%;
+        }
+    }
+}
