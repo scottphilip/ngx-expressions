@@ -1,5 +1,11 @@
 # ngx-expressions
 
+## Demo
+- https://ngx-expressions-demo.stackblitz.io
+- https://scottphilip.github.io/ngx-expressions
+
+## Overview
+
 Angular control that allowing a quick and easy way to give intellisense to a field.  Works with Reactive forms and can be used with [Material Form Field](https://material.angular.io/components/form-field/overview).
 
 ![Demo Screenshot](https://github.com/scottphilip/ngx-expressions/raw/main/docs/demo-expression-interpolation.png)
@@ -23,10 +29,6 @@ Behind the scenes it creates a template in the form:
 Where the modes for Expression and [Interpolation](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html) wrap the USER_CONTENT with a ``return ( );`` and ``return (` `);`` respectively.
 
 When importing the NgxExpressionModule using the forRoot method or NGX_EXPRESSIONS_CONFIG token provider you can import external libs using the usual Monaco ways. 
-
-## Try it out
-
-- https://ngx-expressions-demo.stackblitz.io
 
 ## Install
 
