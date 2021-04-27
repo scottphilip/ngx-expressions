@@ -12,7 +12,7 @@ export const GENERIC_PARSER = (log: (message: string, params: any[]) => void, re
     if (!fullCode.match(regex)) {
         regex.lastIndex = 0;
         const failedGroups = regex.exec(fullCode);
-        console.warn('Failed to parse code', failedGroups, fullCode, regex);
+        console.warn('Failed to parse code', { failedGroups, fullCode, regex });
         return null;
     }
     regex.lastIndex = 0;
@@ -34,10 +34,17 @@ export const GENERIC_PARSER = (log: (message: string, params: any[]) => void, re
         throw new Error('Cannot match header');
     }
     const targetMatch = model.findNextMatch(targetCode, headerRange.getEndPosition(), false, true, null, false);
-    if (targetMatch != null && targetMatch.range != null) {
-        targetRange = targetMatch.range;
+    if (targetCode != null && targetCode.length > 0) {
+        if (targetMatch != null && targetMatch.range != null) {
+            targetRange = targetMatch.range;
+        } else {
+            if (log != null) {
+                log('Cannot match target', [targetCode, groups]);
+            }
+            throw new Error('Cannot match target');
+        }
     } else {
-        throw new Error('Cannot match target');
+        targetRange = new (window as any).monaco.Range(3, 1, 3, 1);
     }
     const endMatch = model.findNextMatch(end, targetRange.getEndPosition(), false, true, null, false);
     if (endMatch != null && endMatch.range != null) {
@@ -68,8 +75,11 @@ export const FORMAT_RULES: { [language: string]: { [name: string]: Formatter } }
         interpolation: {
             regex: INTERPOLATION_REGEX,
             getTemplate: (parameters, returnType, targetCode) => {
+                if (targetCode == null || targetCode.length === 0) {
+                    targetCode = '';
+                }
                 if (returnType !== 'string') {
-                    throw new Error('Interpolated mode must return a string.');
+                    returnType = 'string';
                 }
                 return `(${parameters}): ${returnType} => {
 return (\`
@@ -83,6 +93,9 @@ ${targetCode}
         expression: {
             regex: EXPRESSION_REGEX,
             getTemplate: (parameters, returnType, targetCode) => {
+                if (targetCode == null || targetCode.length === 0) {
+                    targetCode = '';
+                }
                 return `(${parameters}): ${returnType} => {
 return (
 ${targetCode}
@@ -95,6 +108,9 @@ ${targetCode}
         extended: {
             regex: EXTENDED_REGEX,
             getTemplate: (parameters, returnType, targetCode) => {
+                if (targetCode == null || targetCode.length === 0) {
+                    targetCode = '';
+                }
                 return `(${parameters}): ${returnType} => {
 ${targetCode}
 }`;

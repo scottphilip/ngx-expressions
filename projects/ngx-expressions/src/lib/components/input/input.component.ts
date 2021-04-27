@@ -33,7 +33,6 @@ export const MAX_VISIBLE_LINE_COUNT = 8;
     styleUrls: ['./input.component.scss']
 })
 export class InputComponent implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<string>, OnDestroy {
-
     public get busy(): boolean {
         return this._busy === true;
     }
@@ -43,16 +42,9 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
         return this._returnType;
     }
     public set returnType(value: 'string' | 'number' | 'Date' | 'boolean' | 'any' | string) {
+        const targetCode = this.getTargetCode();
         this._returnType = value;
-        this._value = this.formatter.getTemplate(
-            this.language,
-            this.mode,
-            this.parameters,
-            this._returnType,
-            this._value
-        );
-        this.applyValue();
-        this.stateChanges.next();
+        this.writeValue(targetCode);
     }
 
     @Input()
@@ -110,8 +102,7 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
         throw new Error(`Output mode '${this.output}' not implemented!`);
     }
     public set value(value: string) {
-        this._value = this.formatter.getTemplate(this.language, this.mode, this.parameters, this.returnType, value);
-        this.applyValue();
+        this.writeValue(value);
         this.stateChanges.next();
     }
 
@@ -159,11 +150,14 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
     }
 
     public get errorState(): boolean {
-        if (this._validations == null) {
-            return false;
+        const parsed = this.getParseResult();
+        if (this.required === true || (parsed != null && parsed.targetCode.trim().length > 0)) {
+            if (this._validations == null) {
+                return false;
+            }
+            return this._validations.length > 0;
         }
-        return this._validations.length > 0;
-        // return this.ngControl.control != null ? !!this.ngControl.control : false;
+        return false;
     }
 
     public get focused(): boolean {
@@ -204,10 +198,24 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
     public color: 'primary' | 'accent';
 
     @Input()
-    public parameters = 'ctx: any';
+    public get parameters(): string {
+        return this._parameters;
+    }
+    public set parameters(value: string) {
+        const targetCode = this.getTargetCode();
+        this._parameters = value;
+        this.writeValue(targetCode);
+    }
 
     @Input()
-    public mode: ModeType = 'interpolation';
+    public get mode(): ModeType {
+        return this._mode;
+    }
+    public set mode(value: ModeType) {
+        const targetCode = this.getTargetCode();
+        this._mode = value;
+        this.writeValue(targetCode);
+    }
 
     @Input()
     public output: 'function' | 'template' = 'template';
@@ -224,6 +232,8 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
 
     public stateChanges: Subject<void> = new Subject();
 
+    protected _parameters = '';
+    protected _mode: ModeType = 'interpolation';
     protected _returnType: 'string' | 'number' | 'Date' | 'boolean' | 'any' | string = 'string';
     protected _validations: string[] = [];
     protected _onChange: (value: string) => void;
@@ -298,7 +308,14 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
     }
 
     public writeValue(value: string): void {
-        this._value = this.formatter.getTemplate(this.language, this.mode, this.parameters, this.returnType, value);
+        this._value = this.formatter.getTemplate(
+            this.language,
+            this.mode,
+            this.parameters,
+            this.returnType,
+            value || ''
+        );
+        this.applyValue();
     }
 
     @HostListener('focusout')
@@ -310,12 +327,17 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
 
     protected onChange(value: string) {
         if (this._onChange != null) {
-            this._onChange(value);
+            this._onChange(value || '');
         }
     }
 
     protected applyValue() {
-        if (this.editorRef == null || this.editorRef.editor == null) {
+        if (
+            this.editorRef == null ||
+            this.editorRef.editor == null ||
+            this._value == null ||
+            this._value.length === 0
+        ) {
             return;
         }
         let model = this.editorRef.editor.getModel();
@@ -398,5 +420,13 @@ export class InputComponent implements AfterViewInit, ControlValueAccessor, MatF
 
     protected updateHiddenRanges() {
         this.formatter.setHiddenRanges(this.editorRef.editor, this.getParseResult());
+    }
+
+    protected getTargetCode(): string {
+        const parsed = this.reloadParseResult();
+        if (parsed == null) {
+            return '';
+        }
+        return parsed.targetCode;
     }
 }

@@ -8,66 +8,57 @@ declare const monaco: any;
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-    // title = 'demo';
-    // binding: string = '';
-    // options = {
-    //     baseUrl: '/vs'
-    // };
-    //
-    // public onInit(e: any) {
-    //     console.log(e);
-    // }
+export class AppComponent {
+    public codeExpression = 'myWorld.worldPrefix === "Hello" && myWorld.worldName !== "World"';
+    public codeInterpolation = 'Welcome to my ${ myWorld.worldName }';
+    public codeInterpolationArea = `Where $\{ myWorld.worldPrefix } the bit before
 
-    public enable = false;
+...
 
-    public codeExpression = `myWorld.worldName !== "Hello"`;
-    public codeInterpolation = 'Hello ${myWorld.worldName}';
-    public codeErrors = '1 + 3b';
-    public codeAutosize = `const extend: string[] = ["E", "x", "t", "e", "n", "d"];
-const myTemplate: string = \`
+And $\{ myWorld.worldName } is after!`;
+    public codeErrors = '1 + 2 * c';
+    public codeAutosize = `// Updated from https://github.com/jsatk/Hey-Jude/blob/master/script.js ;)
+const heyJude = [
+    [
+        // Line 1
+        ' make it bad. Take a sad song and make it better. ',
+        ' be afraid. You were made to go out and get her. ',
+        ' let me down. You have found her, now go and get her. '
+    ],
+    [
+        // Line 2
+        ' let her into your heart. ',
+        ' let her under your skin. '
+    ],
+    [
+        // Line 3
+        ' can start ',
+        ' begin '
+    ]
+];
+const other = ['Hey, Jude. Don\\'t', 'Remember to', 'Then you', 'to make it better. '];
+const len = heyJude.length;
+let lyrics = '';
+for (let i = 0; i < len; i += 1) {
+    for (let j = 0; j < len; j += 1) {
+        if (i + 1 === len && j > 0) {
+            const x = heyJude[j].length - 1;
 
-Hello
+            lyrics += other[j] + heyJude[j][x];
+        } else {
+            lyrics += other[j] + heyJude[j][i];
+        }
+    }
+    lyrics += other[heyJude.length];
+}
+lyrics += 'better better betTER BETTER WAAA! ';
+for (let i = 0; i < 214; i++) {
+    lyrics += 'NA ';
+}
+return lyrics;`;
+    public codeRequiredNumber = '';
 
-I can make the text field ...
+    protected build() {
 
-
-$\{extend.join("\\n")} :)\`;
-
-return myTemplate.length;`;
-
-    @ViewChild('container')
-    public container: ElementRef<any>;
-
-    public ngOnInit() {
-        // (window as any).MonacoEnvironment = {
-        //     getWorkerUrl: function (moduleId, label) {
-        //         if (label === 'json') {
-        //             return './json.worker.bundle.js';
-        //         }
-        //         if (label === 'css' || label === 'scss' || label === 'less') {
-        //             return './css.worker.bundle.js';
-        //         }
-        //         if (label === 'html' || label === 'handlebars' || label === 'razor') {
-        //             return './html.worker.bundle.js';
-        //         }
-        //         if (label === 'typescript' || label === 'javascript') {
-        //             return './assets/ts.worker.js';
-        //         }
-        //         return './assets/editor.all.js';
-        //     }
-        // };
-        // setTimeout(() => {
-        //     this.enable = true;
-        //     setTimeout(() => {
-        //         monaco.editor.create(this.container.nativeElement, {
-        //             value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
-        //             language: 'typescript'
-        //         });
-        //         setTimeout(() => {
-        //             this.enable = false;
-        //         }, 10000);
-        //     }, 2000);
-        // }, 2000);
     }
 }

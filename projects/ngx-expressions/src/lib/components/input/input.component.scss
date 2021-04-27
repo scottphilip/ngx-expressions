@@ -7,8 +7,7 @@
     height: 22px;
     overflow: hidden;
     margin-bottom: -7px;
-    min-width: 200px;
-    
+
     ::ng-deep {
         .monaco-editor {
             .scrollbar {
@@ -16,7 +15,7 @@
             }
         }
     }
-    
+
     &.autosize.scrolling {
         .monaco-editor {
             .scrollbar {
@@ -94,7 +93,7 @@
             z-index: 99999;
         }
     }
-    
+
     &.disabled {
         expr-editor {
             opacity: 0.8;

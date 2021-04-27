@@ -56,10 +56,22 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
+				<a href="#ngx-expressions" id="ngx-expressions" style="color: inherit; text-decoration: none;">
+					<h1>ngx-expressions</h1>
+				</a>
+				<a href="#demo" id="demo" style="color: inherit; text-decoration: none;">
+					<h2>Demo</h2>
+				</a>
+				<p><a href="https://scottphilip.github.io/ngx-expressions">https://scottphilip.github.io/ngx-expressions</a></p>
+				<p><a href="https://stackblitz.com/edit/ngx-expressions-demo">https://stackblitz.com/edit/ngx-expressions-demo</a></p>
+				<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
+					<h2>Overview</h2>
+				</a>
 				<p>Angular control that allowing a quick and easy way to give intellisense to a field.  Works with Reactive forms and can be used with <a href="https://material.angular.io/components/form-field/overview">Material Form Field</a>.</p>
-				<p><img src="https://raw.githubusercontent.com/scottphilip/ngx-expressions/docs/demo-expression-interpolation.png" alt="Demo Screenshot"></p>
+				<p><img src="https://github.com/scottphilip/ngx-expressions/raw/main/docs/png/screenshot-string-interpolation.png" alt="Demo Screenshot"></p>
 				<p>Under the hood, it uses <a href="https://github.com/microsoft/monaco-editor">Monaco Editor</a>.  The original use case it solved was helping users complete text templates by providing intellisense when inserting parameters which varied accross multiple context.</p>
 				<p>It has since been extended to work for both expressions and functions.</p>
+				<p><img src="https://github.com/scottphilip/ngx-expressions/raw/main/docs/png/screenshot-boolean-expression.png" alt="Demo Screenshot"></p>
 				<a href="#how-it-works" id="how-it-works" style="color: inherit; text-decoration: none;">
 					<h2>How it works</h2>
 				</a>
@@ -70,14 +82,8 @@
 
 <span style="color: #000000">}</span>
 </code></pre>
-				<p>Where the modes for Expression and Interpolation wrap the USER_CONTENT with a <code>return ( );</code> and <code>return (` `);</code> respectively.</p>
+				<p>Where the modes for Expression and <a href="https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html">Interpolation</a> wrap the USER_CONTENT with a <code>return ( );</code> and <code>return (` `);</code> respectively.</p>
 				<p>When importing the NgxExpressionModule using the forRoot method or NGX_EXPRESSIONS_CONFIG token provider you can import external libs using the usual Monaco ways. </p>
-				<a href="#try-it-out" id="try-it-out" style="color: inherit; text-decoration: none;">
-					<h2>Try it out</h2>
-				</a>
-				<ul>
-					<li><a href="https://ngx-expressions-demo.stackblitz.io">https://ngx-expressions-demo.stackblitz.io</a></li>
-				</ul>
 				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 					<h2>Install</h2>
 				</a>
@@ -140,24 +146,31 @@
 					<h2>Properties</h2>
 				</a>
 				<p>All the regular fields that you would expect on a text box are there, but the following are in addition.</p>
-				<a href="#color-quotprimaryquot--quotaccentquot--undefined" id="color-quotprimaryquot--quotaccentquot--undefined" style="color: inherit; text-decoration: none;">
-					<h5>color: <code>&quot;primary&quot; | &quot;accent&quot; | undefined</code></h5>
+				<a href="#mode-quotinterpolationquot--quotexpressionquot--quotextendedquot" id="mode-quotinterpolationquot--quotexpressionquot--quotextendedquot" style="color: inherit; text-decoration: none;">
+					<h4>mode: <code>&quot;interpolation&quot; | &quot;expression&quot; | &quot;extended&quot;</code></h4>
 				</a>
-				<p>The Material Theme colour for the dynamic text.  Default undefined.</p>
+				<p>The control accepts one of three modes.  </p>
+				<p><strong>Interpolation</strong> mode displays the content between the backticks of a interpolated string therefore allowing the user to only see what is relevant to them when trying to complete a string template.  Simply instructing the user to enter the characters ${ will auto complete the closing curly bracket and automatically open intellisense.  Exactly like VS Code.  Control space even works too.</p>
+				<p><strong>Expression</strong> mode is a single line snippet of code that always returns an object.  For example, if the return type was set to boolean, the user can enter a rule that evaluates parameters and turns true or false based on conditions.  The user only sees the logic and none of the surrounding &quot;return&quot; text.</p>
+				<p>Finally, <strong>Extended</strong> mode is simply a method or function that must return a value if the return type indicates it is required. </p>
+				<a href="#color-quotprimaryquot--quotaccentquot--undefined" id="color-quotprimaryquot--quotaccentquot--undefined" style="color: inherit; text-decoration: none;">
+					<h4>color: <code>&quot;primary&quot; | &quot;accent&quot; | undefined</code></h4>
+				</a>
+				<p>Applies only when using interpolation mode.  Highlight the parameters in the Material theme colour.</p>
 				<a href="#parameters-string" id="parameters-string" style="color: inherit; text-decoration: none;">
-					<h5>parameters: <code>string</code></h5>
+					<h4>parameters: <code>string</code></h4>
 				</a>
 				<p>The comma seperated list of parameter names with their data types. </p>
 				<a href="#output-string" id="output-string" style="color: inherit; text-decoration: none;">
-					<h5>output: <code>string</code></h5>
+					<h4>output: <code>string</code></h4>
 				</a>
 				<p>When the control returns a final resulting value, it can be in the format of a function, with parenthesis or a string that goes between back ticks</p>
 				<a href="#validationerrors-string" id="validationerrors-string" style="color: inherit; text-decoration: none;">
-					<h5>validationErrors: <code>string[]</code></h5>
+					<h4>validationErrors: <code>string[]</code></h4>
 				</a>
 				<p>Returns an array of validation errors (not warnings) relating to the control.</p>
 				<a href="#language-string" id="language-string" style="color: inherit; text-decoration: none;">
-					<h5>language: <code>string</code></h5>
+					<h4>language: <code>string</code></h4>
 				</a>
 				<p>This has only been tested and used with Typescript, however it should be possible to use other languages if required.</p>
 				<a href="#configuration" id="configuration" style="color: inherit; text-decoration: none;">
@@ -188,6 +201,10 @@
 <span style="color: #008000"> */</span>
 <span style="color: #001080">log</span><span style="color: #000000">?: (</span><span style="color: #001080">message</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">params</span><span style="color: #000000">: </span><span style="color: #267F99">any</span><span style="color: #000000">[]) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #0000FF">void</span><span style="color: #000000">;</span>
 </code></pre>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p><a href="https://scottphilip.github.io/ngx-expressions/typedoc">https://scottphilip.github.io/ngx-expressions/typedoc</a></p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>

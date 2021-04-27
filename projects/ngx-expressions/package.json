@@ -1,11 +1,11 @@
 {
     "name": "ngx-expressions",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "repository": {
         "type": "git",
-        "url": "https://gihub.com/scottphilip/ngx-expressions"
+        "url": "https://github.com/scottphilip/ngx-expressions"
     },
-    "homepage": "https://gihub.com/scottphilip/ngx-expressions",
+    "homepage": "https://github.com/scottphilip/ngx-expressions",
     "author": {
         "name": "Scott Philip",
         "email": "git@scottphilip.de"

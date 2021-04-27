@@ -74,24 +74,23 @@ export class FormatterService {
             return;
         }
         if (parseResult.workingRange == null) {
-            editor.setPosition(parseResult.headerRange.getEndPosition());
+            editor.setPosition(parseResult.startingPosition);
             editor.setScrollPosition({
                 scrollTop: 0,
                 scrollLeft: 0
             });
             editor.revealPositionNearTop(new (window as any).monaco.Position(1, 1));
-            return;
-        }
-        this.config.log('updatedCursorPosition', e.position);
-        if (!parseResult.workingRange.containsPosition(e.position)) {
-            if (e.position.isBefore(parseResult.workingRange.getStartPosition())) {
-                editor.revealPositionNearTop(parseResult.workingRange.getStartPosition());
-            } else {
-                const end = parseResult.workingRange.getEndPosition();
-                editor.setPosition(end);
+        } else {
+            if (!parseResult.workingRange.containsPosition(e.position)) {
+                if (e.position.isBefore(parseResult.workingRange.getStartPosition())) {
+                    editor.revealPositionNearTop(parseResult.workingRange.getStartPosition());
+                } else {
+                    const end = parseResult.workingRange.getEndPosition();
+                    editor.setPosition(end);
+                }
             }
+            editor.revealPositionNearTop(editor.getPosition(), (window as any).monaco.editor.ScrollType.Immediate);
         }
-        editor.revealPositionNearTop(editor.getPosition(), (window as any).monaco.editor.ScrollType.Immediate);
     }
 
     public updatedCursorSelection(editor: any, parseResult: ParseResult, e: any) {

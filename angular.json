@@ -92,7 +92,6 @@
                         "tsConfig": "projects/demo/tsconfig.app.json",
                         "aot": true,
                         "assets": [
-                            "projects/demo/src/favicon.ico",
                             "projects/demo/src/assets"
                         ],
                         "styles": [
@@ -155,7 +154,7 @@
                         "polyfills": "projects/demo/src/polyfills.ts",
                         "tsConfig": "projects/demo/tsconfig.spec.json",
                         "karmaConfig": "projects/demo/karma.conf.js",
-                        "assets": ["projects/demo/src/favicon.ico", "projects/demo/src/assets"],
+                        "assets": ["projects/demo/src/assets"],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "projects/demo/src/styles.scss"

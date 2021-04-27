@@ -10,11 +10,13 @@ https://stackblitz.com/edit/ngx-expressions-demo
 
 Angular control that allowing a quick and easy way to give intellisense to a field.  Works with Reactive forms and can be used with [Material Form Field](https://material.angular.io/components/form-field/overview).
 
-![Demo Screenshot](https://github.com/scottphilip/ngx-expressions/raw/main/docs/demo-expression-interpolation.png)
+![Demo Screenshot](https://github.com/scottphilip/ngx-expressions/raw/main/docs/png/screenshot-string-interpolation.png)
 
 Under the hood, it uses [Monaco Editor](https://github.com/microsoft/monaco-editor).  The original use case it solved was helping users complete text templates by providing intellisense when inserting parameters which varied accross multiple context.
 
 It has since been extended to work for both expressions and functions.
+
+![Demo Screenshot](https://github.com/scottphilip/ngx-expressions/raw/main/docs/png/screenshot-boolean-expression.png)
 
 ## How it works
 
@@ -156,6 +158,10 @@ configure?: (monaco: any) => Promise<void> | void;
  */
 log?: (message: string, params: any[]) => void;
 ```
+
+## Documentation
+
+https://scottphilip.github.io/ngx-expressions/typedoc
 
 ## License
 

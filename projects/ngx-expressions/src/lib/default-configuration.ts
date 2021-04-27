@@ -21,7 +21,9 @@ export const DEFAULT_OPTIONS: any = {
     scrollbar: {
         vertical: 'hidden',
         horizontal: 'hidden',
-        useShadows: false
+        useShadows: false,
+        alwaysConsumeMouseWheel: false,
+        handleMouseWheel: false
     },
     wordWrap: 'off',
     overviewRulerBorder: false,
