@@ -34,7 +34,7 @@ When importing the NgxExpressionModule using the forRoot method or NGX_EXPRESSIO
 
 ## Install
 
-You can install using [npm package](https://npm.org/packages/ngx-expressions)
+You can install using [npm package](https://www.npmjs.com/package/ngx-expressions)
 
 ```
 npm install --save ngx-expressions
